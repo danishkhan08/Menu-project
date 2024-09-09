@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AI Text Generator</title>
+
+    <style>
+
+	body {
+
+		font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+		background: linear-gradient(135deg, #FF6B6B 10%, #FF0000 100%);
+
+       		display: flex;
+
+        	justify-content: center;
+
+	        align-items: center;
+
+	        height: 100vh;
+
+	        margin: 0;
+
+	    }
+
+
+
+	    .container {
+
+	        background: #f8f9fa;
+
+	        padding: 25px;
+
+	        border-radius: 15px;
+
+	        box-shadow: 0 0 25px rgba(0, 0, 0, 0.15);
+
+	        width: 60%;
+
+	        max-width: 650px;
+
+	        text-align: center;
+
+	    }
+
+
+
+	    h1 {
+
+        	margin-bottom: 25px;
+
+	        color: #212529;
+
+	        font-size: 2em;
+
+	    }
+
+
+
+	    textarea {
+
+	        width: 90%;
+
+	        height: 120px;
+
+	        padding: 10px;
+
+	        border: 2px solid #ced4da;
+
+	        border-radius: 10px;
+
+	        margin-bottom: 25px;
+
+	        font-size: 1em;
+
+	        resize: none;
+
+	    }
+
+
+
+	    button {
+
+	        background-color: #FF6B6B;
+
+	        color: white;
+
+	        border: none;
+
+	        padding: 12px 25px;
+
+	        border-radius: 10px;
+
+	        cursor: pointer;
+
+	        font-size: 1em;
+
+	        transition: background-color 0.3s ease;
+
+	    }
+
+
+
+	    button:hover {
+
+	        background-color: #FF0000;
+
+	    }
+
+
+
+	    #responseContainer {
+
+	        margin-top: 20px;
+
+	        padding: 10px;
+
+	        border-top: 2px solid #ced4da;
+
+	        text-align: left;
+
+	        font-size: 1em;
+
+	        color: #212529;
+
+	        max-height: 350px;
+
+	        overflow-y: auto;
+
+	        background: #fff;
+
+	        border-radius: 10px;
+
+	    }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>AI Text Generator</h1>
+
+        <textarea id="prompt" placeholder="Enter your prompt here..."></textarea>
+
+        <button id="generateButton">Generate</button>
+
+        <div id="responseContainer"></div>
+
+    </div>
+
+
+
+    <script>
+
+        document.getElementById('generateButton').addEventListener('click', function() {
+
+            var prompt = document.getElementById('prompt').value;
+
+            var xhr = new XMLHttpRequest();
+
+            xhr.open('POST', '/cgi-bin/gemini_chat.py', true);
+
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+
+
+            xhr.onreadystatechange = function() {
+
+                if (xhr.readyState === 4 && xhr.status === 200) {
+
+                    document.getElementById('responseContainer').innerText = xhr.responseText;
+
+                }
+
+            };
+
+
+
+            xhr.send('prompt=' + encodeURIComponent(prompt));
+
+        });
+
+    </script>
+
+</body>
+
+</html>

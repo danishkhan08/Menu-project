@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Menu Hub</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #1e1e2f; /* Dark background */
+            color: #f0f0f5; /* Light text color */
+            padding: 50px 0;
+        }
+
+        .container {
+            background-color: #27293d; /* Container background */
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #6d5efc 0%, #ff6b6b 100%); /* Same gradient as buttons */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent; /* Gradient text effect */
+            margin-bottom: 40px;
+            text-transform: uppercase;
+        }
+
+        .btn-custom {
+            width: 250px;
+            padding: 15px;
+            font-size: 16px;
+            border: none;
+            border-radius: 30px;
+            color: #fff;
+            margin: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease-in-out;
+            background: linear-gradient(135deg, #6d5efc 0%, #ff6b6b 100%); /* Gradient for buttons */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-custom:hover {
+            transform: translateY(-5px); /* Hover animation */
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(135deg, #ff6b6b 0%, #6d5efc 100%); /* Reverse gradient */
+        }
+
+        .result {
+            margin-top: 20px;
+        }
+
+        iframe {
+            width: 100%;
+            height: 500px;
+            border: none;
+            border-radius: 10px;
+        }
+
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        @media (max-width: 768px) {
+            .btn-custom {
+                width: 100%;
+            }
+        }
+    </style>
+
+    <script>
+        function loadPage(page) {
+            document.getElementById("iframe").src = page;
+        }
+    </script>
+</head>
+
+<body>
+    <div class="container text-center">
+        <h1>Danish's Interactive Menu</h1>
+
+        <div class="btn-group">
+            <!-- Updated button styles -->
+            <button class="btn btn-custom" onclick="loadPage('sms.html')">Send SMS</button>
+            <button class="btn btn-custom" onclick="loadPage('geo.html')">Get Coordinates</button>
+            <button class="btn btn-custom" onclick="loadPage('send_bulk_email.html')">Send Bulk Email</button>
+            <button class="btn btn-custom" onclick="loadPage('google_search.html')">Google Search</button>
+            <button class="btn btn-custom" onclick="loadPage('d.html')">Docker</button>
+            <button class="btn btn-custom" onclick="loadPage('send_whatsapp.html')">WhatsApp Message</button>
+            <button class="btn btn-custom" onclick="loadPage('linux.html')">Run Linux Command</button>
+            <button class="btn btn-custom" onclick="loadPage('speech_to_text.html')">Speech to Text</button>
+            <button class="btn btn-custom" onclick="loadPage('chatbot.html')">Chatbot</button>
+            <button class="btn btn-custom" onclick="loadPage('upload_pic.html')">Upload Picture</button>
+            <button class="btn btn-custom" onclick="loadPage('live_camera.html')">Live Camera</button>
+            <button class="btn btn-custom" onclick="loadPage('capture_camera.html')">Capture Picture</button>
+            <button class="btn btn-custom" onclick="loadPage('launch_instance.html')">Launch Instance</button>
+            <button class="btn btn-custom" onclick="loadPage('get_ec2_metrics.html')">Get Metrics</button>
+            <button class="btn btn-custom" onclick="loadPage('get_logs.html')">Get Logs</button>
+            <button class="btn btn-custom" onclick="loadPage('dragable_box.html')">Drag Box</button>
+            <button class="btn btn-custom" onclick="loadPage('new_s3_upload.html')">Upload in S3</button>
+            <button class="btn btn-custom" onclick="loadPage('video_to_audio.html')">Video to Audio</button>
+            <button class="btn btn-custom" onclick="loadPage('image_carousel.html')">Image Carousel</button>
+            <button class="btn btn-custom" onclick="loadPage('social_servers.html')">Social Websites</button>
+            <button class="btn btn-custom" onclick="loadPage('launch_spotify.html')">Spotify</button>
+            <button class="btn btn-custom" onclick="loadPage('mode_changer.html')">Light/Dark Mode</button>
+           <button class="btn btn-custom" onclick="loadPage('music_system.html')">Local Music System</button>
+	</div>
+
+        <div class="result">
+            <iframe id="iframe" src=""></iframe>
+        </div>
+    </div>
+</body>
+
+</html>
+

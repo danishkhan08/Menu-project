@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Voice to Text</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        h1 {
+            margin-top: 20px;
+        }
+        #homeButton {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            text-align: center;
+            font-size: 18px;
+            width: auto;
+        }
+        #homeButton:hover {
+            background-color: #3e8e41;
+        }
+    </style>
+    <script>
+        window.onload = function() {
+            var SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            var recognition = new SpeechRecognition();
+
+            recognition.continuous = true;
+            recognition.interimResults = true;
+
+            recognition.lang = "en-US";
+
+            recognition.onresult = function(event) {
+                var final_transcript = "";
+                for (var i = event.resultIndex; i < event.results.length; ++i) {
+                    if (event.results[i].isFinal) {
+                        final_transcript += event.results[i][0].transcript;
+                    }
+                }
+                document.getElementById("text").innerHTML = final_transcript;
+            };
+
+            recognition.start();
+        }
+    </script>
+</head>
+<body>
+    <button id="homeButton" onclick="window.location.href='index.html'">Home</button>
+    <h1>Voice to Text</h1>
+    <p id="text">Start Speaking</p>
+</body>
+</html>

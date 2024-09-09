@@ -1,0 +1,87 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linux </title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+        input[type="text"] {
+            width: 60%;
+            padding: 10px;
+            margin-right: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            font-size: 16px;
+        }
+        .button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4285f4;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+	    margin-top: 10px;
+        }
+        .button:hover {
+            background-color: #357ae8;
+        }
+        #d1 {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            color: #333;
+            border-radius: 10px;
+            box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
+            white-space: pre-wrap; /* Preserve whitespace */
+        }
+    </style>
+    <script>
+        function lw() {
+            var command = document.getElementById("input").value;
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", "/cgi-bin/linux.py?cmd=" + encodeURIComponent(command), true);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    document.getElementById("d1").innerText = xhr.responseText;
+                }
+            };
+            xhr.send();
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h2>Linux</h2>
+        <p>
+            Command:
+            <input id="input" required="True" type="text" placeholder="Enter your required command" />
+            <button class="button" onclick="lw()">Click here</button>
+        </p>
+        <div id="d1"></div>
+    </div>
+</body>
+</html>
+

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Search</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        .container {
+            margin-top: 50px;
+        }
+        .result, .search-results {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+        .search-result {
+            margin-bottom: 15px;
+        }
+    </style>
+    <script>
+        function sendSearchRequest() {
+            var xhr = new XMLHttpRequest();
+            var query = document.getElementById("searchQuery").value;
+
+            xhr.open("GET", "/cgi-bin/google_search.py?query=" + encodeURIComponent(query), true);
+
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    try {
+                        var results = JSON.parse(xhr.responseText);
+                        displaySearchResults(results);
+                    } catch (e) {
+                        document.getElementById("searchResults").innerText = "Error parsing JSON response.";
+                    }
+                }
+            };
+
+            xhr.send();
+        }
+
+        function displaySearchResults(results) {
+            var searchResultsDiv = document.getElementById("searchResults");
+            searchResultsDiv.innerHTML = "";
+
+            results.forEach(function(result) {
+                var resultDiv = document.createElement("div");
+                resultDiv.classList.add("search-result");
+
+                var title = document.createElement("h3");
+                title.textContent = result.title;
+                resultDiv.appendChild(title);
+
+                var link = document.createElement("a");
+                link.href = result.link;
+                link.textContent = result.link;
+                resultDiv.appendChild(link);
+
+                var snippet = document.createElement("p");
+                snippet.textContent = result.snippet;
+                resultDiv.appendChild(snippet);
+
+                searchResultsDiv.appendChild(resultDiv);
+            });
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h2>Google Search</h2>
+        <form id="searchForm" onsubmit="event.preventDefault(); sendSearchRequest();">
+            <div class="form-group">
+                <label for="searchQuery">Search Query:</label>
+                <input type="text" class="form-control" id="searchQuery" name="query" placeholder="Enter search query" required>
+            </div>
+            <button type="submit" class="btn btn-info">Search</button>
+        </form>
+        <div id="searchResults" class="search-results"></div>
+    </div>
+</body>
+</html>
+

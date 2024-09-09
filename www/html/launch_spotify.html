@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Play Song on Spotify</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .spotify-form {
+            text-align: center;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group input {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .input-group button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .input-group button:hover {
+            background-color: #555;
+        }
+
+        #statusMessage {
+            font-size: 16px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="spotify-form">
+        <h2>Play a Song on Spotify</h2>
+        <div class="input-group">
+            <input type="text" id="songName" placeholder="Enter Song Name">
+            <button onclick="playSong()">Play Song</button>
+        </div>
+        <p id="statusMessage"></p>
+    </div>
+
+    <script>
+        function playSong() {
+            var songName = document.getElementById('songName').value.trim();
+            if (songName === '') {
+                document.getElementById('statusMessage').innerText = 'Please enter a song name.';
+                return;
+            }
+
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '/cgi-bin/launch_spotify.py', true);
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        var response = xhr.responseText;
+                        if (response.startsWith('spotify:track:')) {
+                            window.location.href = response;
+                        } else {
+                            document.getElementById('statusMessage').innerText = response;
+                        }
+                    } else {
+                        document.getElementById('statusMessage').innerText = 'Error: ' + xhr.status;
+                    }
+                }
+            };
+            xhr.send('songName=' + encodeURIComponent(songName));
+        }
+    </script>
+</body>
+</html>
+

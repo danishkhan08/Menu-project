@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+    <title>Live Camera Photo Capture</title>
+
+    <style>
+
+        #videoElement {
+
+            width: 640px;
+
+            height: 480px;
+
+            border: 1px solid black;
+
+        }
+
+        #controls {
+
+            display: flex;
+
+            justify-content: center;
+
+            margin-top: 20px;
+
+        }
+
+        #controls button {
+
+            margin: 0 10px;
+
+            padding: 10px 20px;
+
+            background-color: #4CAF50;
+
+            color: white;
+
+            border: none;
+
+            cursor: pointer;
+
+            text-align: center;
+
+            font-size: 18px;
+
+            width: auto;
+
+        }
+
+        #controls button:hover {
+
+            background-color: #3e8e41;
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <h1>Live Camera Photo Capture</h1>
+
+    <video id="videoElement" autoplay></video>
+
+    <div id="controls">
+
+        <button id="capturePhoto">Capture Photo</button>
+
+    </div>
+
+    <script>
+
+        // Get the video element
+
+        const video = document.getElementById('videoElement');
+
+        const capturePhotoButton = document.getElementById('capturePhoto');
+
+        // Get the media stream from the camera
+
+        navigator.mediaDevices.getUserMedia({ video: true })
+
+            .then(stream => {
+
+                // Attach the media stream to the video element
+
+                video.srcObject = stream;
+
+                // Add event listener for capturePhotoButton click event
+
+                capturePhotoButton.addEventListener('click', () => {
+
+                    // Send a request to the Python script to capture and upload the photo
+
+                    const xhr = new XMLHttpRequest();
+
+                    xhr.open('POST', 'upload_pic.py', true);
+
+                    xhr.send();
+
+                });
+
+            })
+
+            .catch(error => {
+
+                console.error('Error accessing camera:', error);
+
+            });
+
+    </script>
+
+</body>
+
+</html>
